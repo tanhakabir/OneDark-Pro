@@ -42,8 +42,17 @@ function configFactory(configuration) {
 
   return {
     semanticTokenColors: {
+      "annotation:dart":{
+        foreground: colorObj.whiskey
+      },
       enumMember: {
         foreground: colorObj.fountainBlue
+      },
+      "parameter.label:dart":{
+        "foreground": colorObj.lightWhite
+      },
+      "property:dart":{
+        foreground: colorObj.whiskey
       },
       'variable.constant': {
         foreground: colorObj.whiskey
@@ -53,15 +62,6 @@ function configFactory(configuration) {
       },
       "variable:dart":{
         foreground: colorObj.whiskey
-      },
-      "property:dart":{
-        foreground: colorObj.whiskey
-      },
-      "annotation:dart":{
-        foreground: colorObj.whiskey
-      },
-      "parameter.label:dart":{
-        "foreground": colorObj.lightWhite
       },
     },
     tokenColors: result

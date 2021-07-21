@@ -3,8 +3,17 @@
   "type": "dark",
   "semanticHighlighting": true,
   "semanticTokenColors": {
+    "annotation:dart": {
+      "foreground": "#d19a66"
+    },
     "enumMember": {
       "foreground": "#56b6c2"
+    },
+    "parameter.label:dart": {
+      "foreground": "#abb2bf"
+    },
+    "property:dart": {
+      "foreground": "#d19a66"
     },
     "variable.constant": {
       "foreground": "#d19a66"
@@ -14,15 +23,6 @@
     },
     "variable:dart": {
       "foreground": "#d19a66"
-    },
-    "property:dart": {
-      "foreground": "#d19a66"
-    },
-    "annotation:dart": {
-      "foreground": "#d19a66"
-    },
-    "parameter.label:dart": {
-      "foreground": "#abb2bf"
     }
   },
   "tokenColors": [

@@ -1,18 +1,18 @@
 import { join } from 'path'
-import * as fs from 'fs'
-import { commands as Commands, ConfigurationTarget, workspace } from 'vscode'
+import { TextEncoder } from "util";
+import { commands, ConfigurationTarget, Uri, workspace  } from 'vscode';
 import { ChangelogWebview } from './webviews/Changelog'
-import { updateCSS, updateTheme, writeFile } from './utils'
+import { updateCSS, updateTheme } from './utils'
 
 /**
  * This method is called when the extension is activated.
  * It initializes the core functionality of the extension.
  */
 export async function activate() {
-  const flagPath = join(__dirname, '../temp', 'flag.txt')
-  if (!fs.existsSync(flagPath)) {
+  const flagPath = Uri.file(join(__dirname, '../temp', 'flag.txt'))
 
-    writeFile(flagPath, '')
+  try {
+    await workspace.fs.writeFile(flagPath, new TextEncoder().encode(''))
 
     const configArr = [
       { defaultVal: false, type: 'bold' },
@@ -30,7 +30,11 @@ export async function activate() {
     if (!configuration.get<boolean>('markdownStyle')) {
       updateCSS()
     }
+
+  } catch (err) {
+    // do nothing
   }
+
   // Observe changes in the config
   workspace.onDidChangeConfiguration(event => {
     if (event.affectsConfiguration('oneDarkPro')) {
@@ -38,13 +42,13 @@ export async function activate() {
       updateCSS()
     }
   })
-  Commands.registerCommand('oneDarkPro.showChangelog', () => {
+  commands.registerCommand('oneDarkPro.showChangelog', () => {
     new ChangelogWebview().show()
   })
 
   const settingArr = ['Vivid', 'Italic', 'Bold']
   settingArr.forEach(settingItem => {
-    Commands.registerCommand(`oneDarkPro.set${settingItem}`, () => {
+    commands.registerCommand(`oneDarkPro.set${settingItem}`, () => {
       workspace
         .getConfiguration()
         .update(
@@ -53,7 +57,7 @@ export async function activate() {
           ConfigurationTarget.Global
         )
     })
-    Commands.registerCommand(`oneDarkPro.cancel${settingItem}`, () => {
+    commands.registerCommand(`oneDarkPro.cancel${settingItem}`, () => {
       workspace
         .getConfiguration()
         .update(

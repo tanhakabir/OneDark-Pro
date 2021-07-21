@@ -3,10 +3,10 @@ import { Theme } from './Theme'
 import * as defaultSettings from '../defaultConfig.json'
 
 export const generateTheme = {
-  default: function(): Theme {
+  default(): Theme {
     return new Theme(defaultSettings)
   },
-  fromSettings: function(): Theme {
+  fromSettings(): Theme {
     const configuration = workspace.getConfiguration('oneDarkPro')
     return new Theme({
       bold: configuration.get<boolean>('bold', defaultSettings.bold),
