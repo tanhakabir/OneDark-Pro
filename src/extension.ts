@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { TextEncoder } from "util";
-import { commands, ConfigurationTarget, Uri, workspace  } from 'vscode';
+import { commands as Commands, ConfigurationTarget, Uri, workspace  } from 'vscode';
 import { ChangelogWebview } from './webviews/Changelog'
 import { updateCSS, updateTheme } from './utils'
 
@@ -42,13 +42,13 @@ export async function activate() {
       updateCSS()
     }
   })
-  commands.registerCommand('oneDarkPro.showChangelog', () => {
+  Commands.registerCommand('oneDarkPro.showChangelog', () => {
     new ChangelogWebview().show()
   })
 
   const settingArr = ['Vivid', 'Italic', 'Bold']
   settingArr.forEach(settingItem => {
-    commands.registerCommand(`oneDarkPro.set${settingItem}`, () => {
+    Commands.registerCommand(`oneDarkPro.set${settingItem}`, () => {
       workspace
         .getConfiguration()
         .update(
@@ -57,7 +57,7 @@ export async function activate() {
           ConfigurationTarget.Global
         )
     })
-    commands.registerCommand(`oneDarkPro.cancel${settingItem}`, () => {
+    Commands.registerCommand(`oneDarkPro.cancel${settingItem}`, () => {
       workspace
         .getConfiguration()
         .update(
